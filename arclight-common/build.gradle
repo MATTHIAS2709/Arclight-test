@@ -75,6 +75,7 @@ dependencies {
     implementation "io.izzel:tools:$toolsVersion"
     implementation "io.izzel.arclight:arclight-api:$apiVersion"
     implementation project(':i18n-config')
+    compileOnly "org.spigotmc:spigot-api:$minecraftVersion-R0.1-SNAPSHOT@jar"
     embed 'net.md-5:bungeecord-chat:1.16-R0.4@jar'
     embed "io.papermc.paper:paper-api:$minecraftVersion-R0.1-SNAPSHOT@jar"
 }
