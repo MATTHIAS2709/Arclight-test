@@ -5,12 +5,16 @@ allprojects {
     version '1.0.6-SNAPSHOT'
 
     def getGitHash = { ->
-        def stdout = new ByteArrayOutputStream()
-        exec {
-            commandLine 'git', 'rev-parse', '--short', 'HEAD'
-            standardOutput = stdout
+        try {
+            def stdout = new ByteArrayOutputStream()
+            exec {
+                commandLine 'git', 'rev-parse', '--short', 'HEAD'
+                standardOutput = stdout
+            }
+            return stdout.toString().trim()
+        } catch (Exception ignored) {
+            return 'unknown'
         }
-        return stdout.toString().trim()
     }
 
     ext {
@@ -38,12 +42,16 @@ task collect(type: Copy) {
 }
 
 def gitBranch() {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
-        standardOutput = stdout
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (Exception ignored) {
+        return 'unknown'
     }
-    return stdout.toString().trim()
 }
 
 tasks.register('uploadFiles', UploadFilesTask) {
